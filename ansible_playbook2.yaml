@@ -1,0 +1,20 @@
+---
+- hosts: webservers
+  remote_user: ansible
+  become: yes
+  tasks:
+  - name: Uninstall httpd
+    yum:
+      name: httpd
+      autoremove: yes
+      state: absent
+  - name: delete file from /var/www/html/
+    file:
+      path: /var/www/index.html
+      state: absent
+  - name: close Firewall rules
+    firewalld:
+      service: http
+      permanent: yes
+      state: disabled
+      immediate: yes

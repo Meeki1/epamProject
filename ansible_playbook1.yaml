@@ -1,0 +1,32 @@
+---
+- hosts: webservers
+  remote_user: ansible
+  become: yes
+  tasks:
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: latest
+  - name: httpd is running and enabled
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  - name: make a home page
+    copy:
+      content: "<h1>Welcome to my web server<h1>"
+      dest: "/var/www/html/index.html"
+  - name: start firewall
+    service:
+      name: firewalld
+      state: started
+  - name: add Firewall rules
+    firewalld:
+      service: http
+      permanent: yes
+      state: enabled
+      immediate: yes
+  - name: restart firewalld service
+    service:
+      name: firewalld
+      state: restarted
