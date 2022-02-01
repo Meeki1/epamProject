@@ -7,17 +7,13 @@
     - secret.yaml
   tasks:
   - name: create users
-    ansible.builtin.user:
+    user:
       name: "{{item.key}}"
       state: present
-      password: " {{ item.value.password | password_hash('sha512')}} "
+      password: " {{ item.value.password | password_hash('sha512') }} "
       comment: "{{item.value.mail}}"
       create_home: yes
       home: "{{item.value.homedir}}"
       update_password: always
       shell: /bin/bash
-    with_dict: "{{users}}"
-  - name:
-    authorized_key:
-      user: carol
-      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    with_dict: "{{users }}"

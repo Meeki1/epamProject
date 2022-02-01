@@ -1,0 +1,28 @@
+---
+# tasks file for httpd
+- name: Install httpd
+  yum:
+    name: httpd
+    state: latest
+
+- name: started and enabled service
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - httpd
+    - firewalld
+
+- name: copy home page
+  copy: src={{ homepage }} dest={{ distin_folder }} mode=0555
+      
+- name: add Firewall rules
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+  notify: 
+    - restart httpd
+    - restart firewalld

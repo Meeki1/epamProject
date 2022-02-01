@@ -1,0 +1,4 @@
+---
+# vars file for httpd
+distin_folder: /var/www/html
+homepage: index.html
