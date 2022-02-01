@@ -1,2 +1,5 @@
 ---
 # vars file for vsftpd
+anon_upload_enable: yes
+anonymous_enable: yes
+write_enable: yes

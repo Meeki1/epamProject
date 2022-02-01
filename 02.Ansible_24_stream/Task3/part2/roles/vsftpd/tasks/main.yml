@@ -10,3 +10,41 @@
     name: vsftpd
     state: started
     enabled: true
+
+- name: open port for service
+  firewalld:
+    service: ftp
+    permanent: yes
+    state: enabled
+
+- name: create config from vsftpd.j2
+  template:
+    src: vsftpd.j2
+    dest: /etc/vsftpd/vsftpd.conf
+  notify: restart vsftpd
+
+- name: install policycoreutils-python
+  yum:
+    name: policycoreutils-python-utils
+    state: present
+
+- name: create upload folder
+  file:
+    path: /var/ftp/pub/upload
+    state: directory
+    mode: 0777
+
+- name: config selinux for anon write
+  seboolean:
+    name: ftpd_anon_write
+    state: yes
+    persistent: yes
+
+- name: allow write to upload folder
+  sefcontext:
+    target: '/var/ftp/pub/upload(/.*)?'
+    setype: public_content_rw_t
+    state: present
+
+- name: apply file context to upload folder
+  command: restorecon -FRv /var/ftp/pub/upload
