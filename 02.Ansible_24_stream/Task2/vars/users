@@ -1,0 +1,18 @@
+users:
+  alice:
+    password: " {{ alice_pass }} "
+    homedir: /home/alice
+    mail: alice@example.com
+    shell: /bin/bash
+
+  Bob:
+    password: " {{ bob_pass }} "
+    homedir: /home/bob
+    mail: bob@example.com
+    shell: /bin/bash
+
+  carol:
+    password: " {{ carol_pass }} "
+    mail: carol@example.com
+    homedir: /home/carol
+    shell: /bin/bash

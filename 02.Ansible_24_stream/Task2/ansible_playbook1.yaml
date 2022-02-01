@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  remote_user: ansible
+  become: yes
+  vars_files:
+    - vars/users
+    - secret.yaml
+  tasks:
+  - name: create users
+    ansible.builtin.user:
+      name: "{{item.key}}"
+      state: present
+      password: " {{ item.value.password }} "
+      comment: "{{item.value.mail}}"
+      create_home: yes
+      home: "{{item.value.homedir}}"
+      update_password: always
+      shell: /bin/bash
+    with_dict: "{{users}}"
+  - name:
+    authorized_key:
+      user: carol
+      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
