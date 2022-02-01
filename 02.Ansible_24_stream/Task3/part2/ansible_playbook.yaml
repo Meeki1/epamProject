@@ -1,0 +1,8 @@
+---
+- name: task3 - use roles
+  hosts: webservers
+  become: yes
+  remote_user: ansible
+
+  roles:
+  - vsftpd
