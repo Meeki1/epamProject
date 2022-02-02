@@ -10,7 +10,7 @@
     ansible.builtin.user:
       name: "{{item.key}}"
       state: present
-      password: " {{ item.value.password }} "
+      password: " {{ item.value.password | password_hash('sha512')}} "
       comment: "{{item.value.mail}}"
       create_home: yes
       home: "{{item.value.homedir}}"
