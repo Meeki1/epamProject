@@ -15,7 +15,7 @@ Remediation: исправление заявки в связи с некорре
 Для ранних обнаружений инцидентов, для ранних оповещений о необходимости обновления ресурсов
 Задание 5
 Перечислите ключевые метрики качества и эффективности работы Технической поддержки?
-Service Level Agreement(SLA), Operational Level Agreement(OLA), Underpinning Contract(UC), Request For Change(RFC), Configuration Items 
+Service Level Agreement(SLA), Operational Level Agreement(OLA)
 Задание 6
 Приведите пример любого процесса (Process) с которым вы часто сталкивайтесь и опишите для него следующие параметры:
 Входные и выходные данные;
